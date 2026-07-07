@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Fabiola Jiménez González — Senior Software Engineer</title>
+<meta name="description" content="Senior Software Engineer with 5+ years building cloud-based backend services and security-sensitive platforms. Fraud &amp; abuse prevention at IBM." />
+
+<!--
+  ============================================================
+  PUBLISH ON GITHUB PAGES
+    1. Create a repo named  <your-username>.github.io
+    2. Add this file as  index.html  and push
+    3. Live at  https://<your-username>.github.io
+
+  Everything is vanilla HTML/CSS/JS in this one file — no build step.
+  Search for  EDIT:  to change anything. Your GitHub link still needs
+  a real handle (marked EDIT), and remove the phone number if you'd
+  rather not publish it.
+  ============================================================
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+
+<style>
+  :root{
+    /* EDIT: palette */
+    --bg:#FFFBFD; --bg2:#FFF3F9; --ink:#241129; --soft:#6E5A72;
+    --pink:#E84393; --violet:#8B3FD6; --line:#F0E2EC; --card:#FFFFFF;
+    --serif:"Fraunces",Georgia,serif; --sans:"DM Sans",system-ui,sans-serif; --mono:"Space Mono",ui-monospace,monospace;
+    --ease:cubic-bezier(.16,1,.3,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  ::selection{background:var(--pink);color:#fff}
+  a{color:inherit;text-decoration:none}
+  .wrap{width:min(880px,90vw);margin-inline:auto}
+  .accent{color:var(--pink)} .mono{font-family:var(--mono)}
+
+  #progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:100;background:linear-gradient(90deg,var(--pink),var(--violet));transition:width .1s linear}
+
+  .cur,.cur-ring{position:fixed;top:0;left:0;border-radius:50%;pointer-events:none;z-index:200;transform:translate(-50%,-50%);mix-blend-mode:multiply}
+  .cur{width:7px;height:7px;background:var(--pink)}
+  .cur-ring{width:34px;height:34px;border:1.5px solid var(--violet);transition:width .25s var(--ease),height .25s var(--ease),background .25s,border-color .25s}
+  .cur-ring.hover{width:56px;height:56px;background:rgba(232,67,147,.08);border-color:var(--pink)}
+  @media(hover:none),(pointer:coarse){.cur,.cur-ring{display:none}}
+
+  #loader{position:fixed;inset:0;z-index:300;background:var(--bg);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1rem;transition:opacity .6s var(--ease),visibility .6s}
+  #loader.done{opacity:0;visibility:hidden}
+  #loader .lname{font-family:var(--serif);font-weight:700;font-size:clamp(1.6rem,5vw,2.4rem);letter-spacing:-.02em;overflow:hidden;text-align:center;padding:0 1rem}
+  #loader .lname span{display:inline-block;transform:translateY(110%);animation:rise .7s var(--ease) forwards}
+  @keyframes rise{to{transform:translateY(0)}}
+  #loader .count{font-family:var(--mono);font-size:.85rem;color:var(--soft)}
+
+  nav{position:sticky;top:0;z-index:60;backdrop-filter:blur(12px);background:rgba(255,251,253,.75);border-bottom:1px solid var(--line)}
+  .nav-inner{display:flex;justify-content:space-between;align-items:center;padding:1.05rem 0}
+  .mark{font-family:var(--serif);font-weight:700;font-size:1.15rem}
+  .nav-links{display:flex;gap:1.3rem;list-style:none}
+  .nav-links a{font-family:var(--mono);font-size:.76rem;color:var(--soft);position:relative}
+  .nav-links a::after{content:"";position:absolute;left:0;bottom:-3px;height:1.5px;width:0;background:var(--pink);transition:width .3s var(--ease)}
+  .nav-links a:hover{color:var(--ink)} .nav-links a:hover::after{width:100%}
+  @media(max-width:640px){.nav-links{display:none}}
+
+  header.hero{position:relative;min-height:90vh;display:flex;align-items:center;padding:4rem 0;overflow:hidden}
+  #net{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+  .hero-inner{position:relative;z-index:1}
+  .eyebrow{font-family:var(--mono);font-size:.76rem;color:var(--violet);letter-spacing:.05em;display:inline-flex;align-items:center;gap:.6em}
+  .eyebrow::before{content:"";width:28px;height:1.5px;background:var(--pink)}
+  .hero h1{font-family:var(--serif);font-weight:700;font-size:clamp(2.6rem,8vw,4.6rem);line-height:1.02;letter-spacing:-.03em;margin:1rem 0 1.2rem}
+  .reveal-line{overflow:hidden;display:block}
+  .reveal-line > span{display:block;transform:translateY(110%);opacity:0}
+  .lifted .reveal-line > span{transform:translateY(0);opacity:1;transition:transform .9s var(--ease),opacity .9s var(--ease)}
+  .lifted .reveal-line:nth-child(2) > span{transition-delay:.09s}
+  .hero p.lead{color:var(--soft);font-size:1.12rem;max-width:56ch;opacity:0;transform:translateY(16px);transition:.9s var(--ease) .3s}
+  .lifted p.lead{opacity:1;transform:none}
+  .cta{display:flex;flex-wrap:wrap;gap:1rem;margin-top:2rem;opacity:0;transform:translateY(16px);transition:.9s var(--ease) .42s}
+  .lifted .cta{opacity:1;transform:none}
+  .btn{font-family:var(--mono);font-size:.8rem;padding:.85em 1.5em;border-radius:999px;display:inline-flex;align-items:center;gap:.5em;will-change:transform}
+  .btn-solid{background:var(--ink);color:#fff} .btn-line{border:1.5px solid var(--ink)}
+  .scroll-hint{position:absolute;bottom:1.6rem;left:50%;transform:translateX(-50%);z-index:1;font-family:var(--mono);font-size:.68rem;color:var(--soft);letter-spacing:.1em;display:flex;flex-direction:column;align-items:center;gap:.5rem}
+  .scroll-hint .bar{width:1px;height:34px;background:linear-gradient(var(--violet),transparent);animation:drop 1.8s var(--ease) infinite}
+  @keyframes drop{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}50.1%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+  section{padding:5rem 0;border-top:1px solid var(--line);position:relative}
+  .sec-head{display:flex;align-items:baseline;gap:1rem;margin-bottom:2.2rem}
+  .sec-num{font-family:var(--mono);font-size:.8rem;color:var(--pink)}
+  h2{font-family:var(--serif);font-weight:700;font-size:clamp(1.6rem,4vw,2.2rem);letter-spacing:-.01em}
+
+  .fade{opacity:0;transform:translateY(28px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+  .fade.in{opacity:1;transform:none}
+  .fade.d1{transition-delay:.08s}.fade.d2{transition-delay:.16s}.fade.d3{transition-delay:.24s}
+
+  .about p{color:var(--soft);margin-bottom:1rem;font-size:1.06rem}
+  .about strong{color:var(--ink);font-weight:700}
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:2rem}
+  @media(max-width:560px){.stats{grid-template-columns:1fr;gap:.6rem}}
+  .stat .n{font-family:var(--serif);font-weight:700;font-size:2rem;background:linear-gradient(120deg,var(--pink),var(--violet));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .stat .l{font-family:var(--mono);font-size:.72rem;color:var(--soft);letter-spacing:.03em}
+
+  /* timeline */
+  /* ---- moving (scroll-driven) timeline ---- */
+  .tl{position:relative;padding-left:2.4rem}
+  .tl-rail{position:absolute;left:5px;top:8px;bottom:8px;width:2px;background:var(--line);border-radius:2px}
+  .tl-fill{position:absolute;left:0;top:0;width:100%;height:0;border-radius:2px;
+    background:linear-gradient(var(--pink),var(--violet));transition:height .12s linear}
+  .tl-pulse{position:absolute;left:1px;top:0;width:0;height:0;opacity:0}
+  .tl-pulse.on{opacity:1;left:-4px;width:10px;height:10px;border-radius:50%;background:var(--violet);
+    box-shadow:0 0 0 0 rgba(139,63,214,.5);animation:pulse 1.6s ease-out infinite;transition:top .12s linear}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(139,63,214,.5)}100%{box-shadow:0 0 0 12px rgba(139,63,214,0)}}
+
+  .tl-item{position:relative;padding-bottom:2.4rem;
+    opacity:.4;transform:translateX(10px);filter:saturate(.6);
+    transition:opacity .5s var(--ease),transform .5s var(--ease),filter .5s var(--ease)}
+  .tl-item:last-child{padding-bottom:0}
+  .tl-item::before{content:"";position:absolute;left:calc(-2.4rem + 1px);top:6px;width:13px;height:13px;
+    border-radius:50%;background:var(--card);border:2px solid var(--line);transform:translateX(-50%);
+    transition:border-color .4s var(--ease),background .4s var(--ease),box-shadow .4s var(--ease),transform .4s var(--ease)}
+  .tl-item.active{opacity:1;transform:none;filter:none}
+  .tl-item.active::before{border-color:var(--pink);background:var(--pink);
+    transform:translateX(-50%) scale(1.15);box-shadow:0 0 0 4px rgba(232,67,147,.14)}
+  .tl-role{font-weight:700;font-size:1.1rem}
+  .tl-co{color:var(--violet)}
+  .tl-meta{font-family:var(--mono);color:var(--soft);font-size:.76rem;margin:.15rem 0 .8rem}
+  .tl-item ul{list-style:none;display:grid;gap:.55rem}
+  .tl-item li{color:var(--soft);padding-left:1.3rem;position:relative;font-size:.98rem}
+  .tl-item li::before{content:"→";position:absolute;left:0;color:var(--pink)}
+  .tl-item li strong{color:var(--ink);font-weight:700}
+
+  .proj{display:grid;gap:1.2rem}
+  .proj-item{border:1px solid var(--line);border-radius:16px;padding:1.5rem 1.6rem;background:var(--card);position:relative;overflow:hidden;transition:transform .3s var(--ease),border-color .3s,box-shadow .3s}
+  .proj-item::after{content:"";position:absolute;inset:0;border-radius:16px;pointer-events:none;background:radial-gradient(340px circle at var(--mx,50%) var(--my,50%),rgba(232,67,147,.08),transparent 60%);opacity:0;transition:opacity .3s}
+  .proj-item:hover{transform:translateY(-4px);border-color:transparent;box-shadow:0 20px 40px -22px rgba(139,63,214,.5)}
+  .proj-item:hover::after{opacity:1}
+  .proj-item h3{font-family:var(--serif);font-weight:700;font-size:1.2rem;margin-bottom:.4rem;position:relative;z-index:1}
+  .proj-item p{color:var(--soft);font-size:.97rem;margin-bottom:.8rem;position:relative;z-index:1}
+  .tags{display:flex;flex-wrap:wrap;gap:.4rem;position:relative;z-index:1}
+  .tag{font-family:var(--mono);font-size:.72rem;color:var(--violet);background:var(--bg2);padding:.25em .7em;border-radius:999px}
+
+  .marquee{overflow:hidden;-webkit-mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);margin:1.5rem 0 2.4rem}
+  .marquee-track{display:flex;gap:1rem;width:max-content;animation:scroll 32s linear infinite}
+  .marquee:hover .marquee-track{animation-play-state:paused}
+  @keyframes scroll{to{transform:translateX(-50%)}}
+  .chip{font-family:var(--mono);font-size:.85rem;white-space:nowrap;border:1px solid var(--line);border-radius:999px;padding:.5em 1.1em;background:var(--card)}
+  .skills-dl{display:grid;grid-template-columns:auto 1fr;gap:.7rem 1.5rem;align-items:baseline}
+  @media(max-width:520px){.skills-dl{grid-template-columns:1fr;gap:.2rem 0}}
+  .skills-dl dt{font-weight:700;font-size:.95rem}
+  .skills-dl dd{color:var(--soft);font-size:.97rem;margin-bottom:.5rem}
+
+  /* certs / achievements */
+  .cert-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
+  @media(max-width:600px){.cert-grid{grid-template-columns:1fr}}
+  .cert{border:1px solid var(--line);border-radius:14px;padding:1.1rem 1.3rem;background:var(--card);display:flex;gap:.9rem;align-items:flex-start;transition:border-color .25s,transform .25s var(--ease)}
+  .cert:hover{border-color:var(--pink);transform:translateY(-3px)}
+  .cert .yr{font-family:var(--mono);font-size:.72rem;color:var(--pink);padding-top:.15rem}
+  .cert .t{font-size:.98rem;line-height:1.4}
+  .cert.win .t strong{background:linear-gradient(120deg,var(--pink),var(--violet));-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:700}
+  .edu{margin-top:2.2rem}
+  .edu-item{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;padding:.7rem 0;border-bottom:1px dashed var(--line)}
+  .edu-item .d{font-weight:700} .edu-item .s{color:var(--soft);font-family:var(--mono);font-size:.8rem}
+  .langs{margin-top:1.6rem;font-family:var(--mono);font-size:.85rem;color:var(--soft)}
+  .langs b{color:var(--ink)}
+
+  .contact h2.big{font-family:var(--serif);font-weight:700;font-size:clamp(2.2rem,7vw,3.6rem);line-height:1.05;letter-spacing:-.02em;margin-bottom:1.2rem}
+  .contact h2.big em{font-style:italic;background:linear-gradient(120deg,var(--pink),var(--violet));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .contact p{color:var(--soft);max-width:50ch;margin-bottom:1.8rem}
+  .clist{display:flex;flex-wrap:wrap;gap:1.2rem;font-family:var(--mono);font-size:.9rem}
+  .clist a{position:relative}
+  .clist a::after{content:"";position:absolute;left:0;bottom:-3px;height:1.5px;width:100%;background:var(--pink);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
+  .clist a:hover::after{transform:scaleX(1)}
+
+  footer{padding:2.4rem 0;border-top:1px solid var(--line);font-family:var(--mono);font-size:.78rem;color:var(--soft)}
+  footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:.6rem}
+
+  :focus-visible{outline:2px solid var(--violet);outline-offset:3px;border-radius:4px}
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal-line > span,.lead,.cta,.fade{opacity:1!important;transform:none!important}.cur,.cur-ring{display:none}}
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+<div class="cur"></div>
+<div class="cur-ring"></div>
+
+<!-- ============ PRELOADER ============ -->
+<div id="loader">
+  <div class="lname" id="lname">Fabiola Jiménez González</div>
+  <div class="count mono"><span id="pct">0</span>%</div>
+</div>
+
+<!-- ============ NAV ============ -->
+<nav>
+  <div class="wrap nav-inner">
+    <div class="mark">Fabiola <span class="accent">JG</span></div>
+    <ul class="nav-links">
+      <li><a href="#about">about</a></li>
+      <li><a href="#experience">experience</a></li>
+      <li><a href="#projects">projects</a></li>
+      <li><a href="#skills">skills</a></li>
+      <li><a href="#awards">awards</a></li>
+      <li><a href="#contact">contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero" id="hero">
+  <canvas id="net"></canvas>
+  <div class="wrap hero-inner">
+    <span class="eyebrow">Senior Software Engineer · Fraud &amp; Abuse · San José, Costa Rica</span>
+    <h1>
+      <span class="reveal-line"><span>Fabiola</span></span>
+      <span class="reveal-line"><span class="accent">Jiménez González</span></span>
+    </h1>
+    <p class="lead">Senior Software Engineer with 5+ years designing, building, and operating cloud-based backend services and security-sensitive platforms at scale. I own complex systems end-to-end — from design through production and on-call.</p>
+    <div class="cta">
+      <a class="btn btn-solid mag" href="#projects">View work →</a>
+      <a class="btn btn-line mag" href="#contact">Get in touch</a>
+    </div>
+  </div>
+  <div class="scroll-hint"><span class="bar"></span>SCROLL</div>
+</header>
+
+<!-- ============ ABOUT ============ -->
+<section id="about" class="about">
+  <div class="wrap">
+    <div class="sec-head fade"><span class="sec-num">01</span><h2>About</h2></div>
+    <p class="fade">I'm a Senior Software Engineer from Costa Rica with a strong background in <strong>distributed systems, live service operations, and on-call incident response</strong>. At IBM I act as a Subject Matter Expert for core backend systems in fraud and abuse prevention — owning design decisions, operational health, and long-term technical direction.</p>
+    <p class="fade d1">I build reliable services, APIs, data pipelines, and internal tools that support <strong>high availability, observability, and operational excellence</strong>. I'm known for deep technical ownership, cross-team collaboration, and translating complex system behavior into clear, actionable outcomes for engineers and stakeholders.</p>
+    <div class="stats">
+      <div class="stat fade"><div class="n" data-to="5" data-suffix="+">0</div><div class="l">years of experience</div></div>
+      <div class="stat fade d1"><div class="n" data-to="2" data-suffix="×">0</div><div class="l">Cyberwoman Challenge podiums</div></div>
+      <div class="stat fade d2"><div class="n" data-to="5" data-suffix="+">0</div><div class="l">certifications &amp; awards</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EXPERIENCE ============ -->
+<section id="experience">
+  <div class="wrap">
+    <div class="sec-head fade"><span class="sec-num">02</span><h2>Experience</h2></div>
+    <div class="tl" id="tl">
+      <div class="tl-rail"><div class="tl-fill" id="tlFill"></div></div>
+      <div class="tl-pulse" id="tlPulse"></div>
+      <div class="tl-item">
+        <div class="tl-role">Fraud Prevention Software Engineer <span class="tl-co">· IBM</span></div>
+        <div class="tl-meta">Jan 2023 – Present · Full-time · Remote</div>
+        <ul>
+          <li>Act as <strong>Subject Matter Expert</strong> for core backend systems, owning design decisions, operational health, and long-term technical direction.</li>
+          <li>Design, develop, and operate backend services, APIs, and data workflows that process and correlate <strong>high-volume security and telemetry data</strong>.</li>
+          <li>Participate in <strong>on-call rotations</strong> — incident triage, root-cause analysis, and resolution of high-impact production issues.</li>
+          <li>Build internal tooling, dashboards, and observability views that improve reliability, debuggability, and analyst efficiency.</li>
+        </ul>
+      </div>
+      <div class="tl-item">
+        <div class="tl-role">Software Engineer, Full Stack <span class="tl-co">· Intel Corporation</span></div>
+        <div class="tl-meta">Jul 2022 – Jan 2023 · Costa Rica</div>
+        <ul>
+          <li>Built cloud-based internal applications using <strong>Node.js, SQL, Angular, and Docker</strong>.</li>
+          <li>Designed logging, monitoring, and analytics dashboards to improve observability and operational insight.</li>
+        </ul>
+      </div>
+      <div class="tl-item">
+        <div class="tl-role">Software Engineer <span class="tl-co">· GatitoLabs</span></div>
+        <div class="tl-meta">Aug 2022 – Dec 2022</div>
+        <ul>
+          <li>Led a <strong>client-facing project end-to-end</strong>, from requirements gathering to delivery.</li>
+          <li>Owned backend design, debugging, and performance; served as primary technical contact for the client.</li>
+        </ul>
+      </div>
+      <div class="tl-item">
+        <div class="tl-role">Data Analysis &amp; Full Stack, Graduate Intern <span class="tl-co">· Intel Corporation</span></div>
+        <div class="tl-meta">Oct 2019 – Jul 2022</div>
+        <ul>
+          <li>Built <strong>Python data pipelines</strong> to extract, correlate, and visualize distributed datasets; supported database migration and system analysis.</li>
+          <li>Led development of innovation prototypes, often as <strong>technical lead</strong>, and mentored junior interns.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROJECTS ============ -->
+<section id="projects">
+  <div class="wrap">
+    <div class="sec-head fade"><span class="sec-num">03</span><h2>Selected work</h2></div>
+    <!-- EDIT: add links to any of these if you can share them -->
+    <div class="proj">
+      <div class="proj-item fade">
+        <h3>Abuse &amp; Fraud Prevention Platform</h3>
+        <p>SME-owned backend services and data workflows that process and correlate high-volume security and telemetry data for global enterprise customers — designed for reliability and low false positives.</p>
+        <div class="tags"><span class="tag">Python</span><span class="tag">IBM Cloud</span><span class="tag">REST APIs</span><span class="tag">PostgreSQL</span></div>
+      </div>
+      <div class="proj-item fade d1">
+        <h3>Cloud Infrastructure Migration</h3>
+        <p>Provisioned Gen2 PostgreSQL with Terraform, configured a VPE gateway, and migrated a production schema across IBM Cloud regions — repeatable and version-controlled.</p>
+        <div class="tags"><span class="tag">Terraform</span><span class="tag">IBM Cloud</span><span class="tag">PostgreSQL</span></div>
+      </div>
+      <div class="proj-item fade d2">
+        <h3>Observability &amp; Analyst Tooling</h3>
+        <p>Internal dashboards and observability views built on logs, metrics, and database queries to surface performance bottlenecks, data inconsistencies, and failure modes.</p>
+        <div class="tags"><span class="tag">Kibana</span><span class="tag">Python</span><span class="tag">SQL</span></div>
+      </div>
+      <div class="proj-item fade d3">
+        <h3>Data Pipelines &amp; Visualization</h3>
+        <p>Python ETL pipelines to extract, correlate, and visualize distributed datasets, with tooling that supported a database migration and clear insights for technical and non-technical stakeholders.</p>
+        <div class="tags"><span class="tag">Python</span><span class="tag">ETL</span><span class="tag">Power BI</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SKILLS ============ -->
+<section id="skills">
+  <div class="wrap">
+    <div class="sec-head fade"><span class="sec-num">04</span><h2>Skills &amp; stack</h2></div>
+  </div>
+  <div class="marquee fade">
+    <div class="marquee-track">
+      <span class="chip">Python</span><span class="chip">JavaScript</span><span class="chip">TypeScript</span><span class="chip">Bash</span><span class="chip">PostgreSQL</span><span class="chip">Docker</span><span class="chip">CI/CD</span><span class="chip">AWS</span><span class="chip">IBM Cloud</span><span class="chip">REST APIs</span><span class="chip">Redis</span><span class="chip">MongoDB</span><span class="chip">Kibana</span><span class="chip">Fraud &amp; Abuse Detection</span><span class="chip">Incident Response</span>
+      <span class="chip">Python</span><span class="chip">JavaScript</span><span class="chip">TypeScript</span><span class="chip">Bash</span><span class="chip">PostgreSQL</span><span class="chip">Docker</span><span class="chip">CI/CD</span><span class="chip">AWS</span><span class="chip">IBM Cloud</span><span class="chip">REST APIs</span><span class="chip">Redis</span><span class="chip">MongoDB</span><span class="chip">Kibana</span><span class="chip">Fraud &amp; Abuse Detection</span><span class="chip">Incident Response</span>
+    </div>
+  </div>
+  <div class="wrap">
+    <dl class="skills-dl fade">
+      <dt>Backend &amp; Cloud</dt><dd>Distributed systems, REST APIs, internal tooling, AWS, IBM Cloud, Docker, CI/CD, live service operations &amp; on-call</dd>
+      <dt>Programming</dt><dd>Python, JavaScript, TypeScript, Bash, PowerShell</dd>
+      <dt>Databases &amp; Data</dt><dd>PostgreSQL, SQL Server, MySQL, MongoDB, Redis, data analysis &amp; ETL pipelines</dd>
+      <dt>Observability &amp; Tools</dt><dd>Kibana, Git, Jira, Power BI, Terraform</dd>
+      <dt>Security (applied)</dt><dd>Secure coding (OWASP), abuse &amp; fraud detection, incident response &amp; investigations</dd>
+    </dl>
+  </div>
+</section>
+
+<!-- ============ AWARDS / EDUCATION ============ -->
+<section id="awards">
+  <div class="wrap">
+    <div class="sec-head fade"><span class="sec-num">05</span><h2>Certifications &amp; achievements</h2></div>
+    <div class="cert-grid">
+      <div class="cert win fade"><span class="yr">2022</span><span class="t"><strong>1st Place — Cyberwoman Challenge</strong> · MICITT–OEA</span></div>
+      <div class="cert win fade d1"><span class="yr">2021</span><span class="t"><strong>3rd Place — Cyberwoman Challenge</strong> · MICITT–OEA</span></div>
+      <div class="cert fade"><span class="yr">2024</span><span class="t">Cybersecurity Governance — Evolving Academy, IBM</span></div>
+      <div class="cert fade d1"><span class="yr">2023</span><span class="t">IBM Certified Advocate — Cloud v2</span></div>
+      <div class="cert fade"><span class="yr">2022</span><span class="t">AWS Academy Cloud Foundations</span></div>
+    </div>
+
+    <div class="edu fade">
+      <div class="edu-item"><span class="d">B.Sc. Computer Science (Software Engineering)</span><span class="s">University of Costa Rica</span></div>
+      <div class="edu-item"><span class="d">M.Sc. Genetics (Molecular Biology) — on hold</span><span class="s">University of Costa Rica</span></div>
+      <div class="edu-item"><span class="d">B.Sc. Biology</span><span class="s">University of Costa Rica</span></div>
+    </div>
+    <p class="langs fade"><b>Languages:</b> Spanish (native) · English (advanced)</p>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section id="contact" class="contact">
+  <div class="wrap">
+    <div class="sec-head fade"><span class="sec-num">06</span><h2>Contact</h2></div>
+    <h2 class="big fade">Let's build<br>something <em>safe.</em></h2>
+    <p class="fade d1">Open to senior backend, platform, and technical-lead roles. If you're hiring for Python, cloud infrastructure, or fraud &amp; abuse work, I'd love to talk.</p>
+    <!-- EDIT: GitHub handle still needs your real username; remove phone if you prefer -->
+    <div class="clist fade d2">
+      <a href="mailto:faniajime@gmail.com">faniajime@gmail.com</a>
+      <a href="https://www.linkedin.com/in/fabiolajimenezg" target="_blank" rel="noopener">LinkedIn ↗</a>
+      <a href="https://github.com/your-handle" target="_blank" rel="noopener">GitHub ↗</a>
+      <a href="tel:+50687029858">+506 8702-9858</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Fabiola Jiménez González</span>
+    <span>Built from scratch · San José, Costa Rica</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  const reduce=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const fine=window.matchMedia("(hover:hover) and (pointer:fine)").matches;
+
+  const ln=document.getElementById("lname");
+  ln.innerHTML=ln.textContent.split("").map((c,i)=>`<span style="animation-delay:${i*0.03}s">${c===" "?"&nbsp;":c}</span>`).join("");
+
+  const loader=document.getElementById("loader"),pct=document.getElementById("pct");
+  let p=0;
+  const tick=setInterval(()=>{p=Math.min(100,p+Math.random()*18+6);pct.textContent=Math.floor(p);
+    if(p>=100){clearInterval(tick);setTimeout(()=>{loader.classList.add("done");document.getElementById("hero").classList.add("lifted");},250);}
+  },reduce?30:110);
+
+  const bar=document.getElementById("progress");
+  addEventListener("scroll",()=>{const h=document.documentElement;bar.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+"%";},{passive:true});
+
+  /* ----- moving timeline: fill tracks scroll, nodes light up ----- */
+  const tl=document.getElementById("tl"),fill=document.getElementById("tlFill"),pulse=document.getElementById("tlPulse");
+  if(tl){
+    const items=[...tl.querySelectorAll(".tl-item")];
+    let ticking=false;
+    function drawTL(){
+      ticking=false;
+      const r=tl.getBoundingClientRect(),vh=innerHeight;
+      // 0 when the timeline top hits ~65% of viewport, 1 when its bottom passes ~35%
+      const start=vh*0.65, end=vh*0.35;
+      let prog=(start-r.top)/((r.height)+(start-end));
+      prog=Math.max(0,Math.min(1,prog));
+      if(reduce)prog=1;
+      const h=r.height*prog;
+      fill.style.height=h+"px";
+      // pulse rides the leading edge while in motion
+      if(prog>0.01&&prog<0.99){pulse.classList.add("on");pulse.style.top=h+"px";}
+      else pulse.classList.remove("on");
+      // activate a node once the fill passes its dot
+      items.forEach(it=>{
+        const dotY=it.offsetTop+6;
+        it.classList.toggle("active",h>=dotY-4);
+      });
+    }
+    addEventListener("scroll",()=>{if(!ticking){ticking=true;requestAnimationFrame(drawTL);}},{passive:true});
+    addEventListener("resize",drawTL);
+    setTimeout(drawTL,400);
+  }
+
+  if(fine&&!reduce){
+    const dot=document.querySelector(".cur"),ring=document.querySelector(".cur-ring");
+    let mx=innerWidth/2,my=innerHeight/2,rx=mx,ry=my;
+    addEventListener("mousemove",e=>{mx=e.clientX;my=e.clientY;dot.style.transform=`translate(${mx}px,${my}px) translate(-50%,-50%)`;});
+    (function loop(){rx+=(mx-rx)*.18;ry+=(my-ry)*.18;ring.style.transform=`translate(${rx}px,${ry}px) translate(-50%,-50%)`;requestAnimationFrame(loop);})();
+    document.querySelectorAll("a,button,.proj-item,.cert,.mag").forEach(el=>{el.addEventListener("mouseenter",()=>ring.classList.add("hover"));el.addEventListener("mouseleave",()=>ring.classList.remove("hover"));});
+    document.querySelectorAll(".mag").forEach(el=>{el.addEventListener("mousemove",e=>{const r=el.getBoundingClientRect();el.style.transform=`translate(${(e.clientX-r.left-r.width/2)*.25}px,${(e.clientY-r.top-r.height/2)*.4}px)`;});el.addEventListener("mouseleave",()=>el.style.transform="");});
+    document.querySelectorAll(".proj-item").forEach(el=>{el.addEventListener("mousemove",e=>{const r=el.getBoundingClientRect();el.style.setProperty("--mx",(e.clientX-r.left)+"px");el.style.setProperty("--my",(e.clientY-r.top)+"px");});});
+  }
+
+  const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target);const n=e.target.querySelector?.("[data-to]");if(n)countUp(n);}});},{threshold:.15});
+  document.querySelectorAll(".fade").forEach(el=>io.observe(el));
+  function countUp(el){if(reduce){el.textContent=el.dataset.to+(el.dataset.suffix||"");return;}const to=+el.dataset.to,suf=el.dataset.suffix||"";let c=0;const step=Math.max(1,to/40);(function go(){c=Math.min(to,c+step);el.textContent=Math.floor(c)+suf;if(c<to)requestAnimationFrame(go);})();}
+
+  const cv=document.getElementById("net"),ctx=cv.getContext("2d");
+  let W,H,nodes=[],mouse={x:-999,y:-999},DPR=Math.min(devicePixelRatio||1,2);
+  function size(){W=cv.width=innerWidth*DPR;H=cv.height=cv.offsetHeight*DPR;cv.style.width=innerWidth+"px";}
+  function build(){const count=Math.round((innerWidth*cv.offsetHeight)/26000);nodes=Array.from({length:Math.max(26,Math.min(70,count))},()=>({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.28*DPR,vy:(Math.random()-.5)*.28*DPR,r:(Math.random()*1.6+1.2)*DPR,flag:Math.random()<0.12}));}
+  const PINK="232,67,147",VIO="139,63,214",LINE="200,170,210";
+  function frame(){ctx.clearRect(0,0,W,H);const link=110*DPR;
+    for(let i=0;i<nodes.length;i++){const a=nodes[i];a.x+=a.vx;a.y+=a.vy;if(a.x<0||a.x>W)a.vx*=-1;if(a.y<0||a.y>H)a.vy*=-1;
+      for(let j=i+1;j<nodes.length;j++){const b=nodes[j],dx=a.x-b.x,dy=a.y-b.y,d=Math.hypot(dx,dy);if(d<link){const o=(1-d/link)*.5;ctx.strokeStyle=`rgba(${(a.flag||b.flag)?PINK:LINE},${o})`;ctx.lineWidth=(a.flag||b.flag?1:.7)*DPR;ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();}}
+      const mdx=a.x-mouse.x,mdy=a.y-mouse.y,md=Math.hypot(mdx,mdy);if(md<160*DPR){const o=(1-md/(160*DPR));ctx.strokeStyle=`rgba(${VIO},${o*.6})`;ctx.lineWidth=1*DPR;ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(mouse.x,mouse.y);ctx.stroke();a.x-=mdx/md*o*1.4;a.y-=mdy/md*o*1.4;}
+      ctx.beginPath();ctx.arc(a.x,a.y,a.r,0,7);ctx.fillStyle=a.flag?`rgba(${PINK},.9)`:`rgba(${VIO},.55)`;ctx.fill();
+      if(a.flag){ctx.beginPath();ctx.arc(a.x,a.y,a.r+3*DPR,0,7);ctx.strokeStyle=`rgba(${PINK},.35)`;ctx.lineWidth=1*DPR;ctx.stroke();}}
+    requestAnimationFrame(frame);}
+  if(!reduce){size();build();frame();addEventListener("resize",()=>{size();build();});
+    cv.parentElement.addEventListener("mousemove",e=>{const r=cv.getBoundingClientRect();mouse.x=(e.clientX-r.left)*DPR;mouse.y=(e.clientY-r.top)*DPR;});
+    cv.parentElement.addEventListener("mouseleave",()=>{mouse.x=mouse.y=-999;});}
+})();
+</script>
+</body>
+</html>
